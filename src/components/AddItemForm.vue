@@ -1,7 +1,8 @@
 <script setup>
-    import {ref} from "vue"
+    import { ref, computed} from "vue"
     import { useShoppingListStore } from "@/stores/shoppingListStore";
     import { v4 as uuidv4 } from 'uuid';
+    import { formatDate } from "../utils/utils"
 
     const store = useShoppingListStore()
 
@@ -34,6 +35,7 @@
             //clearing fields after adding item
             itemName.value = ""
             amount.value = 1
+            dueDate.value = null;
         }
     }
 
@@ -42,17 +44,21 @@
             id: uuidv4(),
             name: itemName.value,
             amount: parseInt(amount.value),
-            dueDate: null,
+            dueDate: formattedDueDate.value,
             completed: false,
         }
        
         store.addItem(itemToAdd)
     }
 
-    const logstuff = () => {
-        //NOTE TO CONTINUE: check which event listener to use @change @input @click are not desirable
-        console.log("stuff")
+    const handleDateSelection = () => {
+        //console.log(formatDate(dueDate.value) > formatDate(Date.now())) can use this later to compare if due date is reached
+        menu.value = false;
     }
+
+    const formattedDueDate = computed(() => {
+    return dueDate.value ? formatDate(dueDate.value): null;
+});
 </script>
 
 <template>
@@ -81,13 +87,13 @@
         >
           <template v-slot:activator="{ props }">
             <v-text-field
-              v-model="dueDate"
+              v-model="formattedDueDate"
               label="Due Date"
               readonly
               v-bind="props"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="dueDate" @update:modelValue="menu = false"></v-date-picker>
+          <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
         </v-menu>
 
         <v-btn type="submit" block class="mt-2">Add To List</v-btn>
