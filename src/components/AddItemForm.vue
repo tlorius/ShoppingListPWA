@@ -11,7 +11,7 @@
     const amount = ref(1)
     const dueDate = ref(null)
     const menu = ref(false)
-
+    
     const itemNameRules = [
         value => {
             if(value.trim()) return true
@@ -68,6 +68,10 @@
     const formattedDueDate = computed(() => {
     return dueDate.value ? formatDate(dueDate.value): null;
 });
+
+    const resetDate = () => {
+        dueDate.value = null;
+    }
 </script>
 
 <template>
@@ -85,26 +89,34 @@
           :rules="amountRules"
         ></v-text-field>
 
-        <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          :return-value.sync="dueDate"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
-          <template v-slot:activator="{ props }">
-            <v-text-field
-              v-model="formattedDueDate"
-              label="Due Date"
-              readonly
-              v-bind="props"
-              :rules="formattedDueDateRules"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
-        </v-menu>
+        <v-row align="center">
+            <v-col>
+                <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="dueDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                    >
+                    <template v-slot:activator="{ props }">
+                        <v-text-field
+                         v-model="formattedDueDate"
+                         label="Due Date"
+                         readonly
+                         v-bind="props"
+                         :rules="formattedDueDateRules"
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col>
+                <v-btn @click="resetDate">Reset</v-btn>
+            </v-col>
+        </v-row>
+        
 
         <v-btn type="submit" block class="mt-2">Add To List</v-btn>
       </v-form>
