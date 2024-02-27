@@ -1,22 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
-  <header>
-    
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <v-layout class="rounded rounded-md">
+    <v-app-bar title="Shopping List - Add any items that you need to get in your next grocery shopping"></v-app-bar>
 
-      <nav>
-        <RouterLink to="/">Shopping List</RouterLink>
-        <RouterLink to="/completed">Completed Items</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <v-navigation-drawer>
+      <v-list>
+        <v-list-item title=""><RouterLink to="/">Shopping List</RouterLink></v-list-item>
+        <v-list-item title=""><RouterLink to="/completed">Completed Items</RouterLink></v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-  <RouterView />
+    <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+      <RouterView />
+    </v-main>
+  </v-layout>
+  
 </template>
 
 <style scoped>

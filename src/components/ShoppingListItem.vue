@@ -34,18 +34,18 @@
 </script>
 
 <template>
-    <v-container fluid>
-        <v-col>
-            Name: {{ item.name }}
-        </v-col>
-        <v-col>
-            Amount: {{ item.amount }}
-        </v-col>
-        <v-col>
-            <v-checkbox :model-value="item.completed" label="Completed" @update:model-value="() => toggleCompletion(item)"></v-checkbox>
-        </v-col>
-        <v-col>
-            <v-btn @click="() => deleteItem(item.id)" density="compact" icon="mdi-delete"></v-btn>
-        </v-col>
-    </v-container>
+    <v-card>
+    <v-row align="center">
+      <v-col>{{ item.name }}</v-col>
+      <v-col>{{ item.amount }}</v-col>
+      <v-col>
+        <v-checkbox :model-value="item.completed" label="Completed" @update:model-value="() => toggleCompletion(item)"></v-checkbox>
+      </v-col>
+      <v-col>
+        <v-btn @click="() => deleteItem(item.id)" icon>
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>

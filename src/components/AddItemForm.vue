@@ -11,7 +11,7 @@
     const amount = ref(1)
     const dueDate = ref(null)
     const menu = ref(false)
-    
+
     const itemNameRules = [
         value => {
             if(value.trim()) return true
@@ -79,13 +79,13 @@
       <v-form fast-fail @submit.prevent="submit">
         <v-text-field
           v-model="itemName"
-          label="Item Name"
+          label="Item Name *"
           :rules="itemNameRules"
         ></v-text-field>
   
         <v-text-field
           v-model="amount"
-          label="Amount"
+          label="Amount *"
           :rules="amountRules"
         ></v-text-field>
 
