@@ -48,6 +48,11 @@
        
         store.addItem(itemToAdd)
     }
+
+    const logstuff = () => {
+        //NOTE TO CONTINUE: check which event listener to use @change @input @click are not desirable
+        console.log("stuff")
+    }
 </script>
 
 <template>
@@ -64,6 +69,26 @@
           label="Amount"
           :rules="amountRules"
         ></v-text-field>
+
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          :return-value.sync="dueDate"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ props }">
+            <v-text-field
+              v-model="dueDate"
+              label="Due Date"
+              readonly
+              v-bind="props"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="dueDate" @update:modelValue="menu = false"></v-date-picker>
+        </v-menu>
 
         <v-btn type="submit" block class="mt-2">Add To List</v-btn>
       </v-form>
