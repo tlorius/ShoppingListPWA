@@ -7,6 +7,8 @@
 
     const itemName = ref("")
     const amount = ref(1)
+    const dueDate = ref(null)
+    const menu = ref(false)
 
     const itemNameRules = [
         value => {
@@ -62,7 +64,7 @@
           label="Amount"
           :rules="amountRules"
         ></v-text-field>
-  
+
         <v-btn type="submit" block class="mt-2">Add To List</v-btn>
       </v-form>
     </v-sheet>

@@ -7,11 +7,7 @@
     })
 
     const store = useShoppingListStore();
-
-   /* const filteredByCompletion = computed(() => {
-            return store.groceries.filter(item => item.completed === isCompleted)
-        })*/
-
+    
     const filterByCompletion = () => {
         return store.groceries.filter(item => item.completed === props.isCompleted)
     }
