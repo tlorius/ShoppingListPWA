@@ -2,7 +2,8 @@
     import { ref, computed} from "vue"
     import { useShoppingListStore } from "@/stores/shoppingListStore";
     import { v4 as uuidv4 } from 'uuid';
-    import { formatDate } from "../utils/utils"
+    import { formatDate, parseDateFormat } from "../utils/utils"
+    import { compareAsc } from "date-fns";
 
     const store = useShoppingListStore()
 
@@ -22,6 +23,15 @@
         value => {
             if(/^[0-9]+$/.test(value)) return true
             return "Please enter a number"
+        }
+    ]
+
+    const formattedDueDateRules = [
+        value => {
+            if(!value) return true
+            //only allow due date to be set to today or in the future
+            if(compareAsc(parseDateFormat(value), parseDateFormat(formatDate(Date.now()))) !== -1) return true
+            return "Date should be today or in the future"
         }
     ]
 
@@ -52,7 +62,6 @@
     }
 
     const handleDateSelection = () => {
-        //console.log(formatDate(dueDate.value) > formatDate(Date.now())) can use this later to compare if due date is reached
         menu.value = false;
     }
 
@@ -91,6 +100,7 @@
               label="Due Date"
               readonly
               v-bind="props"
+              :rules="formattedDueDateRules"
             ></v-text-field>
           </template>
           <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
