@@ -19,6 +19,18 @@
     const deleteItem = (id) => {
         store.removeItem(id)
     }
+
+    const updateItem = (updatedItem) => {
+        store.updateItem(updatedItem)
+    } 
+
+    const toggleCompletion = (item) => {
+        const updatedItem = {
+            ...item,
+            completed: !item.completed,
+        }
+        updateItem(updatedItem)
+    }
 </script>
 
 <template>
@@ -30,7 +42,7 @@
             Amount: {{ item.amount }}
         </v-col>
         <v-col>
-            <v-checkbox color="red" label="Checkbox"></v-checkbox>
+            <v-checkbox :model-value="item.completed" label="Completed" @update:model-value="() => toggleCompletion(item)"></v-checkbox>
         </v-col>
         <v-col>
             <v-btn @click="() => deleteItem(item.id)" density="compact" icon="mdi-delete"></v-btn>
