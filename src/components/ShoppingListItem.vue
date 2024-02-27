@@ -32,6 +32,11 @@
         }
         updateItem(updatedItem)
     }
+
+    const enterEditMode = (item) => {
+        store.itemToUpdate = item
+        store.editMode = true
+    }
 </script>
 
 <template>
@@ -75,7 +80,7 @@
 
 
             <v-col>
-                <v-btn @click="() => console.log(`replaceme`)" icon>
+                <v-btn @click="() => enterEditMode(item)" icon>
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
             </v-col>

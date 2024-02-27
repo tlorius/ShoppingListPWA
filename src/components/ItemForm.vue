@@ -7,6 +7,13 @@
 
     const store = useShoppingListStore()
 
+    const props = defineProps({
+        isUpdate: Boolean,
+        itemToUpdate: {
+            type: Object
+        }
+    })
+
     const itemName = ref("")
     const amount = ref(1)
     const dueDate = ref(null)
@@ -72,6 +79,12 @@
     const resetDate = () => {
         dueDate.value = null;
     }
+
+    const cancelEdit = () => {
+        store.editMode = false
+    }
+
+    //note for edit submit => currently we are still working with a proxy item => map to new const
 </script>
 
 <template>
@@ -118,8 +131,16 @@
         </v-row>
         
 
-        <v-btn type="submit" block class="mt-2">Add To List</v-btn>
+        <v-btn v-if="!isUpdate" type="submit" block class="mt-2">Add To List</v-btn>
+        <v-row v-else>
+            <v-col>
+                <v-btn type="submit" class="mt-2">Update Item</v-btn>
+            </v-col>
+            <v-col>
+                <v-btn type="button" class="mt-2" @click="cancelEdit">Discard Changes</v-btn>
+            </v-col>
+        </v-row>
+        
       </v-form>
     </v-sheet>
 </template>
-

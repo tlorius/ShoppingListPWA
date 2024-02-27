@@ -3,6 +3,8 @@ import { defineStore } from "pinia";
 export const useShoppingListStore = defineStore("shoppingList", {
   state: () => ({
     groceries: JSON.parse(localStorage.getItem("shoppingList")) || [],
+    editMode: false,
+    itemToUpdate: null,
   }),
   actions: {
     addItem(item) {

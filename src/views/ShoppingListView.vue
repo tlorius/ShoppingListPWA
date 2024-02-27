@@ -1,12 +1,14 @@
 <script setup>
-import AddItemForm from '@/components/AddItemForm.vue';
+import ItemForm from '@/components/ItemForm.vue';
 import ShoppingList from '@/components/ShoppingList.vue';
+import { useShoppingListStore } from '@/stores/shoppingListStore';
 
+const store = useShoppingListStore()
 </script>
 
 <template>
     <v-container>
-        <AddItemForm />
+        <ItemForm :isUpdate="store.editMode" :itemToUpdate="store.itemToUpdate"/>
         <ShoppingList />
     </v-container>
     
