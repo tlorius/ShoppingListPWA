@@ -75,7 +75,7 @@
 </script>
 
 <template>
-    <v-sheet width="300" class="mx-auto">
+    <v-sheet width="1000" class="mx-auto">
       <v-form fast-fail @submit.prevent="submit">
         <v-text-field
           v-model="itemName"
@@ -113,7 +113,7 @@
                 </v-menu>
             </v-col>
             <v-col>
-                <v-btn @click="resetDate">Reset</v-btn>
+                <v-btn @click="resetDate">Remove Due Date</v-btn>
             </v-col>
         </v-row>
         
