@@ -2,18 +2,18 @@
   "name": "shoppinglisttask",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
+    "dev": "vite",
+    "preview": "vite preview",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
     "date-fns": "^3.3.1",
     "pinia": "^2.1.7",
+    "register-service-worker": "^1.7.2",
     "uuid": "^9.0.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
@@ -21,11 +21,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/test-utils": "^2.4.4",
     "cypress": "^13.6.3",
     "jsdom": "^24.0.0",
     "start-server-and-test": "^2.0.3",
     "vite": "^5.0.11",
     "vitest": "^1.2.2"
-  }
+  },
+  "type": "module"
 }
