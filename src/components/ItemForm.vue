@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed} from "vue"
+    import { ref, computed, watch} from "vue"
     import { useShoppingListStore } from "@/stores/shoppingListStore";
     import { v4 as uuidv4 } from 'uuid';
     import { formatDate, parseDateFormat } from "../utils/utils"
@@ -67,6 +67,18 @@
        
         store.addItem(itemToAdd)
     }
+    //conditionally call within submit function
+    const updateListItem = () => {
+        const updatedItem = {
+            id: store.itemToUpdate.id,
+            name: itemName.value,
+            amount: parseInt(amount.value),
+            dueDate: formattedDueDate.value,
+            completed: store.itemToUpdate.completed,
+        }
+
+        store.updateItem(updatedItem)
+    }
 
     const handleDateSelection = () => {
         menu.value = false;
@@ -85,6 +97,19 @@
     }
 
     //note for edit submit => currently we are still working with a proxy item => map to new const
+    //setting fields to empty or existing item depending on isUpdate prop
+    watch(() => props.isUpdate, (newValue) => {
+        if(newValue){
+            itemName.value = store.itemToUpdate.name
+            amount.value = store.itemToUpdate.amount
+            dueDate.value = store.itemToUpdate.dueDate ? parseDateFormat(store.itemToUpdate.dueDate) : null
+        } else  {
+            itemName.value = ""
+            amount.value = 1
+            dueDate.value = null
+        }
+    })
+    
 </script>
 
 <template>
