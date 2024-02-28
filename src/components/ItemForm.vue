@@ -101,8 +101,8 @@
     }
 
     //setting fields to empty or existing item depending on isUpdate prop
-    watch(() => props.itemToUpdate, (newItem) => {
-        if(props.isUpdate){
+    watch([() => props.isUpdate, () => props.itemToUpdate], ([isUpdateValue, newItem]) => {
+        if(isUpdateValue){
             itemName.value = newItem.name
             amount.value = newItem.amount
             dueDate.value = newItem.dueDate ? parseDateFormat(newItem.dueDate) : null
