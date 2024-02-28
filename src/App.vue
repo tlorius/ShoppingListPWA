@@ -9,34 +9,27 @@ let deferredPrompt;
 
 onMounted(() => {
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
-    // Stash the event so it can be triggered later.
     deferredPrompt = e;
   });
 });
 
 const installPWA = async () => {
   if (!deferredPrompt) return;
-  // Show the install prompt
   deferredPrompt.prompt();
-  // Wait for the user to respond to the prompt
   const { outcome } = await deferredPrompt.userChoice;
   if (outcome === 'accepted') {
     console.log('User accepted the install prompt');
   } else {
     console.log('User dismissed the install prompt');
   }
-  // We've used the prompt, and can't use it again, clear it
   deferredPrompt = null;
 };
 </script>
 
 <template>
   <v-app>
-    
     <v-app-bar app>
-      
       <v-toolbar>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title :class="{ 'text-xs': smAndDown }" >Shopping List</v-toolbar-title>
