@@ -48,6 +48,10 @@
         const results = await event
         //results is an object with 2 props(valid(bool) and errors(arr))
         if(results.valid){
+            if(props.isUpdate){
+                updateListItem()
+                store.editMode = false;
+            }
             addItemToList()
             //clearing fields after adding item
             itemName.value = ""
@@ -86,7 +90,7 @@
 
     const formattedDueDate = computed(() => {
     return dueDate.value ? formatDate(dueDate.value): null;
-});
+    });
 
     const resetDate = () => {
         dueDate.value = null;
@@ -96,13 +100,12 @@
         store.editMode = false
     }
 
-    //note for edit submit => currently we are still working with a proxy item => map to new const
     //setting fields to empty or existing item depending on isUpdate prop
-    watch(() => props.isUpdate, (newValue) => {
-        if(newValue){
-            itemName.value = store.itemToUpdate.name
-            amount.value = store.itemToUpdate.amount
-            dueDate.value = store.itemToUpdate.dueDate ? parseDateFormat(store.itemToUpdate.dueDate) : null
+    watch(() => props.itemToUpdate, (newItem) => {
+        if(props.isUpdate){
+            itemName.value = newItem.name
+            amount.value = newItem.amount
+            dueDate.value = newItem.dueDate ? parseDateFormat(newItem.dueDate) : null
         } else  {
             itemName.value = ""
             amount.value = 1

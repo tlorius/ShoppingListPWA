@@ -19,6 +19,7 @@
 
     const deleteItem = (id) => {
         store.removeItem(id)
+        store.editMode = false
     }
 
     const updateItem = (updatedItem) => {
