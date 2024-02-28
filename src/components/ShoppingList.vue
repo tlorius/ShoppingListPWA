@@ -17,7 +17,7 @@
 <template>
     
     <v-container>
-        <v-card class="pl-2 text-center">
+        <v-card class="pl-2 pr-2 text-center">
             <v-row align="center">
                 <v-col>Completed</v-col>
                 <v-col>Item Name</v-col>
