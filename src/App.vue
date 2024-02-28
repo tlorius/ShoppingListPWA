@@ -1,12 +1,17 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import { ref } from "vue"
 import { useDisplay } from 'vuetify'
 const { smAndDown } = useDisplay()
+const drawer = ref(false)
+
 </script>
 
 <template>
   <v-app>
+    
     <v-app-bar app>
+      
       <v-toolbar>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title :class="{ 'text-xs': smAndDown }" >Shopping List</v-toolbar-title>
@@ -20,7 +25,11 @@ const { smAndDown } = useDisplay()
           </v-toolbar-items>
       </v-toolbar>
     </v-app-bar>
-
+    
+    <v-navigation-drawer v-model="drawer">
+      <v-list-item link title="Download PWA"></v-list-item>
+    </v-navigation-drawer>
+    
     <v-main style="min-height: 300px;">
         <RouterView :class="{ 'text-xs': smAndDown }"/>
       </v-main>
