@@ -3,21 +3,20 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <v-layout class="rounded rounded-md">
-    <v-app-bar title="Shopping List - Add any items that you need to get in your next grocery shopping"></v-app-bar>
+    <v-layout class="rounded rounded-md">
+      <v-app-bar title="Shopping List - Add any items that you need to get in your next grocery shopping"></v-app-bar>
 
-    <v-navigation-drawer>
-      <v-list>
-        <v-list-item title=""><RouterLink to="/">Shopping List</RouterLink></v-list-item>
-        <v-list-item title=""><RouterLink to="/completed">Completed Items</RouterLink></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+      <v-navigation-drawer>
+        <v-list>
+          <v-list-item title=""><RouterLink to="/">Shopping List</RouterLink></v-list-item>
+          <v-list-item title=""><RouterLink to="/completed">Completed Items</RouterLink></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
 
-    <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
-      <RouterView />
-    </v-main>
-  </v-layout>
-  
+      <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+        <RouterView />
+      </v-main>
+    </v-layout>
 </template>
 
 <style scoped>

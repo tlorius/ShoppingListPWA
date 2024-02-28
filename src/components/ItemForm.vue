@@ -51,9 +51,11 @@
             if(props.isUpdate){
                 updateListItem()
                 store.editMode = false;
+            } else {
+                addItemToList()
             }
-            addItemToList()
-            //clearing fields after adding item
+            
+            //clearing fields after adding/updating item
             itemName.value = ""
             amount.value = 1
             dueDate.value = null;
