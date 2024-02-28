@@ -21,7 +21,7 @@ const { smAndDown } = useDisplay()
       </v-toolbar>
     </v-app-bar>
 
-    <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+    <v-main style="min-height: 300px;">
         <RouterView :class="{ 'text-xs': smAndDown }"/>
       </v-main>
   </v-app>  
