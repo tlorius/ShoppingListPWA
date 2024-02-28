@@ -1,10 +1,35 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { useDisplay } from 'vuetify'
 const { smAndDown } = useDisplay()
 const drawer = ref(false)
 
+let deferredPrompt;
+
+onMounted(() => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+  });
+});
+
+const installPWA = async () => {
+  if (!deferredPrompt) return;
+  // Show the install prompt
+  deferredPrompt.prompt();
+  // Wait for the user to respond to the prompt
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    console.log('User accepted the install prompt');
+  } else {
+    console.log('User dismissed the install prompt');
+  }
+  // We've used the prompt, and can't use it again, clear it
+  deferredPrompt = null;
+};
 </script>
 
 <template>
@@ -27,7 +52,7 @@ const drawer = ref(false)
     </v-app-bar>
     
     <v-navigation-drawer v-model="drawer">
-      <v-list-item link title="Download PWA"></v-list-item>
+      <v-list-item link title="Download PWA" @click="installPWA"></v-list-item>
     </v-navigation-drawer>
     
     <v-main style="min-height: 300px;">
