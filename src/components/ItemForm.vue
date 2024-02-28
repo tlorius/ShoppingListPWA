@@ -4,6 +4,8 @@
     import { v4 as uuidv4 } from 'uuid';
     import { formatDate, parseDateFormat } from "../utils/utils"
     import { compareAsc } from "date-fns";
+    import { useDisplay } from 'vuetify'
+    const { smAndDown } = useDisplay()
 
     const store = useShoppingListStore()
 
@@ -142,6 +144,7 @@
                             >
                                 <template v-slot:activator="{ props }">
                                     <v-text-field
+                                        density="compact"
                                         v-model="formattedDueDate"
                                         label="Due Date"
                                         readonly
@@ -151,21 +154,27 @@
                                 </template>
                             <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
                         </v-menu>
-                        <v-btn @click="resetDate">Remove Due Date</v-btn>
+                        <v-btn :class="{ 'text-xs': smAndDown }" class="ml-2" @click="resetDate">Remove Due Date</v-btn>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col v-if="!isUpdate" cols="12" class="text-center">
-                        <v-btn type="submit">Add To List</v-btn>
+                        <v-btn :class="{ 'text-xs': smAndDown }" type="submit">Add To List</v-btn>
                     </v-col>
                     <v-col v-if="isUpdate">
-                        <v-btn type="submit" class="mt-2">Update Item</v-btn>
+                        <v-btn :class="{ 'text-xs': smAndDown }" type="submit" class="mt-2">Update Item</v-btn>
                     </v-col>
                     <v-col v-if="isUpdate">
-                        <v-btn type="button" class="mt-2" @click="cancelEdit">Discard Changes</v-btn>
+                        <v-btn :class="{ 'text-xs': smAndDown }" type="button" class="mt-2" @click="cancelEdit">Discard Changes</v-btn>
                     </v-col>
                 </v-row>
             </v-form>
         </v-card-text>
     </v-card>
 </template>
+
+<style scoped>
+.text-xs{
+  font-size: 9px;
+}
+</style>
