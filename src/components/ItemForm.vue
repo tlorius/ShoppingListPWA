@@ -118,59 +118,54 @@
 </script>
 
 <template>
-    <v-sheet width="1000" class="mx-auto">
-      <v-form fast-fail @submit.prevent="submit">
-        <v-text-field
-          v-model="itemName"
-          label="Item Name *"
-          :rules="itemNameRules"
-        ></v-text-field>
-  
-        <v-text-field
-          v-model="amount"
-          label="Amount *"
-          :rules="amountRules"
-        ></v-text-field>
-
-        <v-row align="center">
-            <v-col>
-                <v-menu
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    :return-value.sync="dueDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                    >
-                    <template v-slot:activator="{ props }">
-                        <v-text-field
-                         v-model="formattedDueDate"
-                         label="Due Date"
-                         readonly
-                         v-bind="props"
-                         :rules="formattedDueDateRules"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col>
-                <v-btn @click="resetDate">Remove Due Date</v-btn>
-            </v-col>
-        </v-row>
-        
-
-        <v-btn v-if="!isUpdate" type="submit" block class="mt-2">Add To List</v-btn>
-        <v-row v-else>
-            <v-col>
-                <v-btn type="submit" class="mt-2">Update Item</v-btn>
-            </v-col>
-            <v-col>
-                <v-btn type="button" class="mt-2" @click="cancelEdit">Discard Changes</v-btn>
-            </v-col>
-        </v-row>
-        
-      </v-form>
-    </v-sheet>
+    <v-card>
+        <v-card-text>
+            <v-form fast-fail @submit.prevent="submit">
+                <v-row>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="itemName" label="Item Name *" :rules="itemNameRules"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="amount" label="Amount *" :rules="amountRules"></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12" class="d-flex ">
+                        <v-menu
+                            v-model="menu"
+                            :close-on-content-click="false"
+                            :nudge-right="40"
+                            :return-value.sync="dueDate"
+                            transition="scale-transition"
+                            offset-y
+                            min-width="auto"
+                            >
+                                <template v-slot:activator="{ props }">
+                                    <v-text-field
+                                        v-model="formattedDueDate"
+                                        label="Due Date"
+                                        readonly
+                                        v-bind="props"
+                                        :rules="formattedDueDateRules"
+                                    ></v-text-field>
+                                </template>
+                            <v-date-picker v-model="dueDate" @update:modelValue="handleDateSelection"></v-date-picker>
+                        </v-menu>
+                        <v-btn @click="resetDate">Remove Due Date</v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col v-if="!isUpdate" cols="12" class="text-center">
+                        <v-btn type="submit">Add To List</v-btn>
+                    </v-col>
+                    <v-col v-if="isUpdate">
+                        <v-btn type="submit" class="mt-2">Update Item</v-btn>
+                    </v-col>
+                    <v-col v-if="isUpdate">
+                        <v-btn type="button" class="mt-2" @click="cancelEdit">Discard Changes</v-btn>
+                    </v-col>
+                </v-row>
+            </v-form>
+        </v-card-text>
+    </v-card>
 </template>
